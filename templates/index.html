@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Suggestor System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General Styles */
+        body {
+            background: linear-gradient(135deg, #83a4d4, #b6fbff);
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        /* Heading Styles */
+        h1 {
+            color: #2d4059;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        h1:hover {
+            color: #1b2836;
+            transform: scale(1.05);
+        }
+
+        /* Container Styles */
+        .container {
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        /* Input Field Styling */
+        .form-control {
+            border: 2px solid #2d4059;
+            border-radius: 5px;
+        }
+
+        .form-control:focus {
+            background: #f9f9f9;
+            outline: none;
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            background: #2d4059;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1b2836;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Table Styles (Suggestions Part) */
+        table {
+            border: 1px solid #2d4059;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #2d4059;
+            color: #fff;
+        }
+
+        tbody tr {
+            background: #ffffff; /* Default background */
+        }
+
+        tbody tr:hover {
+            background: #f0f8ff; /* Light blue for hover effect */
+        }
+
+        td, th {
+            text-align: center;
+            padding: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">AutoSuggest and AutoCorrect System</h1>
+        <form method="POST" action="/suggest" class="mt-4">
+            <div class="form-group">
+                <label for="keyword" class="font-weight-bold">Enter a word:</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" required placeholder="Type a word...">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5">Submit</button>
+            </div>
+        </form>
+
+        <div id="suggestions" class="mt-4">
+        {% if suggestions %}
+        <h3 class="text-center mt-4 mb-3">Suggestions</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Suggested Word</th>
+                    <th>Similarity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for suggestion in suggestions %}
+                <tr>
+                    <td>{{ suggestion['Word'] }}</td>
+                    <td>{{ suggestion['Similarity'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        </div>
+    </div>
+</body>
+</html>
